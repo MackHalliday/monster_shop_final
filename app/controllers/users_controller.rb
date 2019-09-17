@@ -12,6 +12,9 @@ class UsersController< ApplicationController
 
   def create
     @user = User.new(user_params)
+
+    Address.create({address_type: "primary", name: params[:name], address: params[:address], city: params[:city], state: params[:state], zipcode: params[:zipcode], user: @user.id })
+
     if @user.save
       session[:user_id] = @user.id
       flash[:success] = "Welcome #{@user.name}! You are now registered and logged in."
@@ -66,6 +69,6 @@ class UsersController< ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :address, :city, :state, :zipcode, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end

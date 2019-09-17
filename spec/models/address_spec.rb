@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Address, type: :model do
   describe "validations" do
-    it {should validate_presence_of :type}
+    it {should validate_presence_of :address_type}
     it {should validate_presence_of :name}
     it {should validate_presence_of :address}
     it {should validate_presence_of :city}
