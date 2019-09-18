@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   get "/profile/orders/:id", to: "users#show_order"
 
 
-  resources :address, only: [:edit, :update]
+  resources :addresses, only: [:edit, :update]
 
 
   post "/cart/:item_id", to: "cart#add_item"

@@ -91,7 +91,7 @@ RSpec.describe "Edit User Addresses" do
 
     click_on "Update Address"
 
-    expect(current_path).to eq(edit_address_path(@address_1))
+    expect(current_path).to eq(edit_addresses_path(@address_1))
     expect(page).to have_content("Address type cannot be blank")
     expect(page).to have_content("Name type cannot be blank")
     expect(page).to have_content("Address type cannot be blank")

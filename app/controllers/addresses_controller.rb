@@ -1,4 +1,4 @@
-class AddressController < ApplicationController
+class AddressesController < ApplicationController
 
   def edit
     @address = current_user.addresses.find(params[:id])
