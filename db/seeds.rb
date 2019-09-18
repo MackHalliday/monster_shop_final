@@ -79,12 +79,15 @@ review_35 = dundie.reviews.create(title: 'Title 5', content: "This is content fo
 
 #users
 regular_user_1 = User.create!(name: "George Jungle",
+              email: "junglegeorge@email.com",
+              password: "Tree123")
+address_1 = Address.create(address_type: "primary",
+              name: "George Jungle",
               address: "1 Jungle Way",
               city: "Jungleopolis",
               state: "FL",
               zipcode: "77652",
-              email: "junglegeorge@email.com",
-              password: "Tree123")
+              user: regular_user_1)
 regular_user_2 = User.create!(name: "John Testing",
               address: "123 Testing Lane",
               city: "Testico",
