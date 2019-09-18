@@ -1,7 +1,7 @@
 <h1 align= "center">Edit Address %></h1>
 
 <center>
-  <%= form_for [:users, @address] do |f| %>
+  <%= form_for(@address) do |f| %>
 
     <%= f.label :address_type %>
     <%= f.text_field :address_type %>

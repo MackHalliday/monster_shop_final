@@ -30,7 +30,7 @@ RSpec.describe "Edit User Addresses" do
       click_on "Edit"
     end
 
-    expect(current_path).to eq(edit_users_address_path(@address_1))
+    expect(current_path).to eq(edit_address_path(@address_1))
     expect(find_field("Address type").value).to eq(@address_1.address_type)
     expect(find_field("Name").value).to eq(@address_1.name)
     expect(find_field("Address").value).to eq(@address_1.address)
@@ -68,7 +68,7 @@ RSpec.describe "Edit User Addresses" do
     end
   end
 
-  it 'user cannot enter nil information' do
+  xit 'user cannot enter nil information' do
 
     within "#address-#{@address_1.id}" do
       click_on "Edit"
@@ -91,7 +91,7 @@ RSpec.describe "Edit User Addresses" do
 
     click_on "Update Address"
 
-    expect(current_path).to eq(edit_users_address_path(@address_1))
+    expect(current_path).to eq(edit_address_path(@address_1))
     expect(page).to have_content("Address type cannot be blank")
     expect(page).to have_content("Name type cannot be blank")
     expect(page).to have_content("Address type cannot be blank")

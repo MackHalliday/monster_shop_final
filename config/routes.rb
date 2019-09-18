@@ -51,9 +51,9 @@ Rails.application.routes.draw do
   get "/profile/orders/new", to: "orders#new"
   get "/profile/orders/:id", to: "users#show_order"
 
-  namespace :users do
-    resources :address, only: [:edit, :update]
-  end
+
+  resources :address, only: [:edit, :update]
+
 
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"

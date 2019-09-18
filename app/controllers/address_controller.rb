@@ -1,4 +1,5 @@
-class Users::AddressController < ApplicationController
+class AddressController < ApplicationController
+
   def edit
     @address = current_user.addresses.find(params[:id])
   end
