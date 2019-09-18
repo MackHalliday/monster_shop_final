@@ -7,10 +7,6 @@
     <%= image_tag profile_img.sample, class: 'profile-img' %>
     <br>
     <center>
-      <p class="lead">Address: <%= @user.address %></p>
-      <p class="lead">City: <%= @user.city %></p>
-      <p class="lead">State: <%= @user.state %></p>
-      <p class="lead">Zipcode: <%= @user.zipcode %></p>
       <p class="lead">Email: <%= @user.email %></p>
     </center>
   </section>
@@ -25,9 +21,18 @@
 
     <%= link_to "My Orders", "/profile/orders", class: "btn btn-secondary" %>
   </section>
-
-
-
 </center>
-
+<section id= "user-address">
+  <% @user.addresses.each do |address| %>
+  <section id= 'address-<%=address.id%>'>
+    <h3><%= address.address_type %></h3>
+    <p><%= address.name%></p>
+    <p><%= address.address%></p>
+    <p><%= address.city%></p>
+    <p><%= address.state%><p>
+    <p><%= address.zipcode%></p>
+    <%= link_to "Edit", edit_users_address_path(address) %>
+  </section>
+  <% end %>
+</section>
 </div>
