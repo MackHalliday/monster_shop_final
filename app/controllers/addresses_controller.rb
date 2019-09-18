@@ -31,6 +31,13 @@ class AddressesController < ApplicationController
     end
   end
 
+  def destroy
+    @address = Address.find(params[:id])
+    @address.destroy
+    current_user.reload
+    redirect_to profile_path
+  end
+
   private
   def address_params
     params.require(:address).permit(:address_type, :name, :address, :city, :state, :zipcode)

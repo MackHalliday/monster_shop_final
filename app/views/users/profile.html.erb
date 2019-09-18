@@ -32,6 +32,7 @@
     <p><%= address.state%><p>
     <p><%= address.zipcode%></p>
     <%= link_to "Edit", edit_address_path(address) %>
+    <%= link_to "Delete", address_path(address), method: :delete %>
   </section>
   <% end %>
 </section>

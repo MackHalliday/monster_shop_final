@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
-  resources :addresses, only: [:edit, :update, :new, :create]
+  resources :addresses, only: [:edit, :update, :new, :create, :destroy]
 
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
