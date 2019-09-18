@@ -73,7 +73,6 @@ RSpec.describe "Edit User Addresses" do
     state = ""
     zipcode = ""
 
-
     fill_in 'Address type', with: address_type
     fill_in 'Name', with: name
     fill_in 'Address', with: address
