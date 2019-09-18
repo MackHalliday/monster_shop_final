@@ -29,7 +29,7 @@ RSpec.describe "Edit User Addresses" do
     regular_user = User.create!(name: "George Jungle",
                                 email: "junglegeorge@email.com",
                                 password: "Tree123")
-    address_1 = Address.create(address_type: "primary",
+    address_1 = regular_user.addresses.create!(address_type: "primary",
                                   name: regular_user.name,
                                   address: "1 Jungle Way",
                                   city: "Jungleopolis",
@@ -70,8 +70,6 @@ RSpec.describe "Edit User Addresses" do
 
     expect(current_path).to eq('/profile')
 
-    address_1.reload
-    regular_user.reload
 
     within "#address-#{address_1.id}" do
       expect(page).to have_content(address_type)
