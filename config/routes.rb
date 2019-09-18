@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
+  resources :addresses, only: [:edit, :update]
+
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
     resources :orders, only: [:show]
@@ -50,10 +52,6 @@ Rails.application.routes.draw do
   post "/profile/orders", to: "orders#create"
   get "/profile/orders/new", to: "orders#new"
   get "/profile/orders/:id", to: "users#show_order"
-
-
-  resources :addresses, only: [:edit, :update]
-
 
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"
