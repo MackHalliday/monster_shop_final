@@ -1,30 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Edit User Addresses" do
-  before :each do
-    # regular_user = User.create!(name: "George Jungle",
-    #                             email: "junglegeorge@email.com",
-    #                             password: "Tree123")
-    # address_1 = Address.create(address_type: "primary",
-    #                               name: @regular_user.name,
-    #                               address: "1 Jungle Way",
-    #                               city: "Jungleopolis",
-    #                               state: "FL",
-    #                               zipcode: "77652",
-    #                               user: @regular_user)
-    #
-    # address_2 = Address.create!(address_type: "business",
-    #                               name: @regular_user.name,
-    #                               address: "123 Happy St.",
-    #                               city: "Test City",
-    #                               state: "CO",
-    #                               zipcode: "38990",
-    #                               user: @regular_user)
-    #
-    # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@regular_user)
-    # visit '/profile'
-  end
-
   it 'can edit user their addresses' do
     regular_user = User.create!(name: "George Jungle",
                                 email: "junglegeorge@email.com",

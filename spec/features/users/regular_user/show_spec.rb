@@ -14,14 +14,10 @@ RSpec.describe "User Profile" do
     visit '/profile'
   end
 
-  xit 'can show the users info' do
+  it 'can show the users info' do
 
     within "#user-info-#{@regular_user.id}" do
       expect(page).to have_content(@regular_user.name)
-      expect(page).to have_content(@regular_user.address)
-      expect(page).to have_content(@regular_user.city)
-      expect(page).to have_content(@regular_user.state)
-      expect(page).to have_content(@regular_user.zipcode)
       expect(page).to have_content(@regular_user.email)
     end
 
