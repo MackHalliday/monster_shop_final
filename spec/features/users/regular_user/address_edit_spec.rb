@@ -70,6 +70,9 @@ RSpec.describe "Edit User Addresses" do
 
     expect(current_path).to eq('/profile')
 
+    address_1.reload
+    regular_user.reload
+
     within "#address-#{address_1.id}" do
       expect(page).to have_content(address_type)
       expect(page).to have_content(name)
