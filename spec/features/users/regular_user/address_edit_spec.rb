@@ -44,8 +44,9 @@ RSpec.describe "Edit User Addresses" do
 
     click_on "Update Address"
 
-    expect(current_path).to eq('/profile')
+    address_1.reload
 
+    expect(current_path).to eq('/profile')
 
     within "#address-#{address_1.id}" do
       expect(page).to have_content(address_type)

@@ -23,6 +23,7 @@
   </section>
 </center>
 <section id= "user-address">
+
   <% @user.addresses.each do |address| %>
   <section id= 'address-<%=address.id%>'>
     <h3><%= address.address_type %></h3>

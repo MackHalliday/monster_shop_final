@@ -10,12 +10,15 @@ RSpec.describe("Order Creation") do
       @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
 
       @regular_user = User.create!(name: "George Jungle",
-                    address: "1 Jungle Way",
-                    city: "Jungleopolis",
-                    state: "FL",
-                    zipcode: "77652",
-                    email: "junglegeorge@email.com",
-                    password: "Tree123")
+                                  email: "junglegeorge@email.com",
+                                  password: "Tree123")
+      @address_1 = @regular_user.addresses.create!(address_type: "primary",
+                                    name: @regular_user.name,
+                                    address: "1 Jungle Way",
+                                    city: "Jungleopolis",
+                                    state: "FL",
+                                    zipcode: "77652",
+                                    user: @regular_user)
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@regular_user)
 
@@ -32,7 +35,7 @@ RSpec.describe("Order Creation") do
       click_on "Checkout"
     end
 
-    it 'I can create a new order' do
+    it 'I can select which address ' do
       name = "Bert"
       address = "123 Sesame St."
       city = "NYC"
