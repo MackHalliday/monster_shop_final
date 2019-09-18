@@ -10,8 +10,6 @@
       <p class="lead">Email: <%= @user.email %></p>
     </center>
   </section>
-
-
 <br>
 <center>
   <section id= "user-profile-actions">
@@ -23,7 +21,6 @@
   </section>
 </center>
 <section id= "user-address">
-
   <% @user.addresses.each do |address| %>
   <section id= 'address-<%=address.id%>'>
     <h3><%= address.address_type %></h3>

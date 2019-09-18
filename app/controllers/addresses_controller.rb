@@ -5,11 +5,15 @@ class AddressesController < ApplicationController
   end
 
   def update
-
     address = Address.find(params[:id])
     address.update(address_params)
-    address.reload
-    redirect_to profile_path
+    current_user.reload
+    if address.save
+      redirect_to profile_path
+    else
+      flash[:error] = address.errors.full_messages.to_sentence
+      redirect_to edit_address_path(address)
+    end
   end
 
   private

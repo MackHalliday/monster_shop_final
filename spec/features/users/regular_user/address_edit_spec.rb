@@ -1,32 +1,35 @@
 require 'rails_helper'
 
 RSpec.describe "Edit User Addresses" do
-  it 'can edit user their addresses' do
-    regular_user = User.create!(name: "George Jungle",
+
+  before :each do
+    @regular_user = User.create!(name: "George Jungle",
                                 email: "junglegeorge@email.com",
                                 password: "Tree123")
-    address_1 = regular_user.addresses.create!(address_type: "primary",
-                                  name: regular_user.name,
+    @address_1 = @regular_user.addresses.create!(address_type: "primary",
+                                  name: @regular_user.name,
                                   address: "1 Jungle Way",
                                   city: "Jungleopolis",
                                   state: "FL",
-                                  zipcode: "77652",
-                                  user: regular_user)
+                                  zipcode: "77652")
 
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(regular_user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@regular_user)
     visit '/profile'
+  end
+  it 'can edit user their addresses' do
 
-    within "#address-#{address_1.id}" do
+
+    within "#address-#{@address_1.id}" do
       click_on "Edit"
     end
 
-    expect(current_path).to eq(edit_address_path(address_1))
-    expect(find_field("Address type").value).to eq(address_1.address_type)
-    expect(find_field("Name").value).to eq(address_1.name)
-    expect(find_field("Address").value).to eq(address_1.address)
-    expect(find_field("City").value).to eq(address_1.city)
-    expect(find_field("State").value).to eq(address_1.state)
-    expect(find_field("Zipcode").value).to eq(address_1.zipcode)
+    expect(current_path).to eq(edit_address_path(@address_1))
+    expect(find_field("Address type").value).to eq(@address_1.address_type)
+    expect(find_field("Name").value).to eq(@address_1.name)
+    expect(find_field("Address").value).to eq(@address_1.address)
+    expect(find_field("City").value).to eq(@address_1.city)
+    expect(find_field("State").value).to eq(@address_1.state)
+    expect(find_field("Zipcode").value).to eq(@address_1.zipcode)
 
     address_type = "school"
     name = "Adam Smith"
@@ -44,11 +47,10 @@ RSpec.describe "Edit User Addresses" do
 
     click_on "Update Address"
 
-    address_1.reload
 
     expect(current_path).to eq('/profile')
 
-    within "#address-#{address_1.id}" do
+    within "#address-#{@address_1.id}" do
       expect(page).to have_content(address_type)
       expect(page).to have_content(name)
       expect(page).to have_content(address)
@@ -58,7 +60,7 @@ RSpec.describe "Edit User Addresses" do
     end
   end
 
-  xit 'user cannot enter nil information' do
+  it 'user cannot enter nil information' do
 
     within "#address-#{@address_1.id}" do
       click_on "Edit"
@@ -81,12 +83,12 @@ RSpec.describe "Edit User Addresses" do
 
     click_on "Update Address"
 
-    expect(current_path).to eq(edit_addresses_path(@address_1))
-    expect(page).to have_content("Address type cannot be blank")
-    expect(page).to have_content("Name type cannot be blank")
-    expect(page).to have_content("Address type cannot be blank")
-    expect(page).to have_content("City type cannot be blank")
-    expect(page).to have_content("State type cannot be blank")
-    expect(page).to have_content("Zipcode type cannot be blank")
+    expect(current_path).to eq(edit_address_path(@address_1))
+    expect(page).to have_content("Address type can't be blank")
+    expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content("Address can't be blank")
+    expect(page).to have_content("City can't be blank")
+    expect(page).to have_content("State can't be blank")
+    expect(page).to have_content("Zipcode can't be blank")
   end
 end
