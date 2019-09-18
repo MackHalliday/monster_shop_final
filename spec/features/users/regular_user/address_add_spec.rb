@@ -51,4 +51,35 @@ RSpec.describe "Add New User Addresses" do
       expect(page).to have_content(zipcode)
     end
   end
+
+  it 'new address cannot have nil values' do
+
+    within "#address" do
+      click_on "Add New Address"
+    end
+
+    address_type = ""
+    name = ""
+    address = ""
+    city = ""
+    state = ""
+    zipcode = ""
+
+    fill_in 'Address type', with: address_type
+    fill_in 'Name', with: name
+    fill_in 'Address', with: address
+    fill_in 'City', with: city
+    fill_in 'State', with: state
+    fill_in 'Zipcode', with: zipcode
+
+    click_on "Add New Address"
+
+    expect(current_path).to eq(new_address_path)
+    expect(page).to have_content("Address type can't be blank")
+    expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content("Address can't be blank")
+    expect(page).to have_content("City can't be blank")
+    expect(page).to have_content("State can't be blank")
+    expect(page).to have_content("Zipcode can't be blank")
+  end
 end

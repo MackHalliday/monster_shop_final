@@ -6,11 +6,12 @@ class AddressesController < ApplicationController
 
   def create
     @address = current_user.addresses.create(address_params)
+
     if @address.save
       redirect_to profile_path
     else
       flash[:error] = @address.errors.full_messages.to_sentence
-      render :new
+      redirect_to new_address_path
     end
   end
 
