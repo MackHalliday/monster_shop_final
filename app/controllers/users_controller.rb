@@ -8,19 +8,20 @@ class UsersController< ApplicationController
 
   def new
     @user = User.new
+    @address = Address.new
   end
 
   def create
     @user = User.new(user_params)
 
-    Address.create({address_type: "primary", name: params[:name], address: params[:address], city: params[:city], state: params[:state], zipcode: params[:zipcode], user: @user.id })
+    address = Address.create({address_type: "primary", name: params[:user][:name], address: params[:user][:address], city: params[:user][:city], state: params[:user][:state], zipcode: params[:user][:zipcode], user: @user })
 
-    if @user.save
+    if @user.save && address.save
       session[:user_id] = @user.id
       flash[:success] = "Welcome #{@user.name}! You are now registered and logged in."
       redirect_to "/profile"
     else
-      flash[:error] = @user.errors.full_messages.to_sentence
+      flash[:error] = @user.errors.full_messages.to_sentence + " " + address.errors.full_messages.to_sentence
       render :new
     end
   end
