@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
-  resources :addresses, only: [:edit, :update]
+  resources :addresses, only: [:edit, :update, :new, :create]
 
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
@@ -26,13 +26,11 @@ Rails.application.routes.draw do
     resources :reviews, except: [:show, :index]
   end
 
-  # resources :orders, only: [:new, :create]
   patch "/orders/:id", to: "orders#cancel", as: :order_cancel
 
   namespace :admin do
     get "/", to: "dashboard#index"
     patch "/orders/:order_id/update_status", to: "dashboard#update_status"
-
     resources :users, only: [:index, :show]
     resources :merchants, only: [:show]
   end

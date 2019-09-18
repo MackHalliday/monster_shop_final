@@ -1,5 +1,19 @@
 class AddressesController < ApplicationController
 
+  def new
+    @address = Address.new
+  end
+
+  def create
+    @address = current_user.addresses.create(address_params)
+    if @address.save
+      redirect_to profile_path
+    else
+      flash[:error] = @address.errors.full_messages.to_sentence
+      render :new
+    end
+  end
+
   def edit
     @address = current_user.addresses.find(params[:id])
   end

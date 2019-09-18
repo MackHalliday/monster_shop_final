@@ -1,7 +1,8 @@
-<h1 align= "center">Edit Address ></h1>
+<h1 align= "center">Add New Address ></h1>
 
 <center>
-  <%= form_for(@address) do |f| %>
+
+  <%= form_for @address, url: addresses_path do |f| %>
 
     <%= f.label :address_type %>
     <%= f.text_field :address_type %>
@@ -21,6 +22,6 @@
     <%= f.label :zipcode %>
     <%= f.text_field :zipcode %>
 
-    <%= f.submit %>
+    <%= f.submit "Add New Address" %>
   <% end %>
 </center>
