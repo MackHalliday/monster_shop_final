@@ -6,13 +6,10 @@ RSpec.describe "Admin_user Merchant Index Page " do
     merchant_2 = Merchant.create(name: "Meg's Dog Shop", address: '123 Dog Rd.', city: 'Hershey', state: 'PA', zip: 80203, enabled?: false)
 
     admin_user = User.create!(name: "Michael Scott",
-                  address: "1725 Slough Ave",
-                  city: "Scranton",
-                  state: "PA",
-                  zipcode: "18501",
                   email: "michael.s@email.com",
                   password: "WorldBestBoss",
                   role: 3)
+    address = create(:address, user: admin_user)
 
     item_1 = merchant_1.items.create!(attributes_for(:item))
     item_2 = merchant_1.items.create!(attributes_for(:item))

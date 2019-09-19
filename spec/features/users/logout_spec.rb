@@ -4,12 +4,9 @@ require 'rails_helper'
 RSpec.describe "User Logout" do
   before :each do
     @regular_user = User.create!(name: "George Jungle",
-                  address: "1 Jungle Way",
-                  city: "Jungleopolis",
-                  state: "FL",
-                  zipcode: "77652",
                   email: "junglegeorge@email.com",
                   password: "Tree123")
+    @address_1 = create(:address, user: @regular_user)
 
     @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
 
