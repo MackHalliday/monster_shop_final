@@ -12,9 +12,10 @@ class UsersController< ApplicationController
   end
 
   def create
+
     @user = User.new(user_params)
 
-    address = Address.create({address_type: "primary", name: params[:user][:name], address: params[:user][:address], city: params[:user][:city], state: params[:user][:state], zipcode: params[:user][:zipcode], user: @user })
+    address = Address.create({address_type: "primary", name: params[:name], address: params[:address], city: params[:city], state: params[:state], zipcode: params[:zipcode], user: @user })
 
     if @user.save && address.save
       session[:user_id] = @user.id
@@ -34,6 +35,7 @@ class UsersController< ApplicationController
   end
 
   def update
+
     @user.update(user_params)
     if @user.save
       flash[:success] = "Your profile has been updated"
@@ -70,6 +72,6 @@ class UsersController< ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.permit(:name, :email, :password, :password_confirmation)
   end
 end

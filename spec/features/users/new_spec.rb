@@ -44,9 +44,8 @@ RSpec.describe "Registering User" do
     expect(page).to have_content("City can't be blank")
     expect(page).to have_content("State can't be blank")
     expect(page).to have_content("Zipcode can't be blank")
-    expect(page).to have_content("Email can't be blank")
+  
     expect(page).to have_content("Email is invalid")
-    expect(page).to have_content("Password can't be blank")
   end
 
   it "confirms passwords match" do

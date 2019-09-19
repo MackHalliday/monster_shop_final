@@ -52,6 +52,7 @@ RSpec.describe "Merchant Dashboard" do
     merchant_1 =  Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
 
     merchant_admin = User.create!(name: "Michael Scott",
+                  email: "email@email.com",
                   password: "WorldBestBoss",
                   role: 2,
                   merchant: merchant_1)
