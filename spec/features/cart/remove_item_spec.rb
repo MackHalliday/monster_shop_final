@@ -8,12 +8,9 @@ RSpec.describe 'Cart show' do
         @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
 
         @regular_user = User.create!(name: "George Jungle",
-                      address: "1 Jungle Way",
-                      city: "Jungleopolis",
-                      state: "FL",
-                      zipcode: "77652",
                       email: "junglegeorge@email.com",
                       password: "Tree123")
+        @address_1 = create(:address, user: @regular_user)
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@regular_user)
 
