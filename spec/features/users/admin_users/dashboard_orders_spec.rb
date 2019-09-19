@@ -4,6 +4,8 @@ RSpec.describe "Admin Dashboard page" do
   before :each do
     @regular_user_1 = create(:user, name: "Regular User 1")
     @regular_user_2 = create(:user, name: "Regular User 2")
+      @address_1 = create(:address, user: @regular_user_1)
+      @address_2 = create(:address, user: @regular_user_2)
 
     @merchant_shop_1 = create(:merchant, name: "Merchant Shop 1")
       @item_1 = @merchant_shop_1.items.create!(attributes_for(:item, name: "Item 1", inventory: 10))
@@ -14,27 +16,28 @@ RSpec.describe "Admin Dashboard page" do
       @item_3 = @merchant_shop_2.items.create!(attributes_for(:item, name: "Item 3", inventory: 20))
       @item_4 = @merchant_shop_2.items.create!(attributes_for(:item, name: "Item 4", inventory: 10))
 
-    @order_1 = create(:order, name: "Matt", status: 1)
+    @order_1 = Order.create(address: @address_1, status: 1)
       @item_order_1 = @regular_user_1.item_orders.create!(order: @order_1, item: @item_1, quantity: 2, price: @item_1.price, user: @regular_user_1, fulfilled?: false)
       @item_order_2 = @regular_user_1.item_orders.create!(order: @order_1, item: @item_2, quantity: 8, price: @item_2.price, user: @regular_user_1, fulfilled?: false)
       @item_order_3 = @regular_user_1.item_orders.create!(order: @order_1, item: @item_3, quantity: 10, price: @item_3.price, user: @regular_user_1, fulfilled?: false)
 
-    @order_2 = create(:order, name: "Amy", status: 0)
+    @order_2 = Order.create(address: @address_2, status: 0)
       @item_order_4 = @regular_user_2.item_orders.create(order: @order_2, item: @item_2, quantity: 100, price: @item_2.price, user: @regular_user_1, fulfilled?: true)
 
-    @order_3 = create(:order, name: "Beth", status: 2)
+    @order_3 = Order.create(address: @address_2, status: 2)
       @item_order_5 = @regular_user_2.item_orders.create(order: @order_3, item: @item_4, quantity: 18, price: @item_4.price, user: @regular_user_1, fulfilled?: true)
 
-    @order_4 = create(:order, name: "Adam", status: 3)
+    @order_4 = Order.create(address: @address_1, status: 3)
       @item_order_6 = @regular_user_1.item_orders.create(order: @order_4, item: @item_5, quantity: 15, price: @item_5.price, user: @regular_user_1, fulfilled?: true)
 
-    @order_5 = create(:order, name: "Sam", status: 1)
+    @order_5 = Order.create(address: @address_1, status: 1)
       @item_order_7 = @regular_user_1.item_orders.create(order: @order_5, item: @item_1, quantity: 15, price: @item_1.price, user: @regular_user_1, fulfilled?: false)
 
-    @order_6 = create(:order, name: "Jim", status: 0)
+    @order_6 = Order.create(address: @address_2, status: 0)
       @item_order_8 = @regular_user_2.item_orders.create(order: @order_6, item: @item_3, quantity: 10, price: @item_3.price, user: @regular_user_1, fulfilled?: true)
 
     @admin_1 = create(:user, name: "Admin 1", role: 3)
+      @address_3 = create(:address, user: @admin_1)
 
 
   end
