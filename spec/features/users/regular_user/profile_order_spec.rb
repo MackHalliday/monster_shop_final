@@ -24,7 +24,7 @@ RSpec.describe "User Profile Order Page" do
     expect(current_path).to eq("/profile/orders")
   end
 
-  it "see a flash message confirming my recent order and empty cart" do
+  xit "see a flash message confirming my recent order and empty cart" do
     visit item_path(@item_1)
     click_on "Add To Cart"
 

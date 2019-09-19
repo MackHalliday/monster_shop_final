@@ -70,6 +70,10 @@ RSpec.describe "Select address during checkout" do
     end
 
     click_button("Submit Order")
+    expect(page).to have_content("Your order has been created!")
 
+    within 'nav' do
+      expect(page).to have_content("Cart: 0")
+    end
   end
 end
