@@ -3,13 +3,10 @@ require 'rails_helper'
 RSpec.describe "Admin Users" do
   before :each do
     @admin_user = User.create!(name: "Leslie Knope",
-                  address: "14 Somewhere Ave",
-                  city: "Pawnee",
-                  state: "IN",
-                  zipcode: "18501",
                   email: "recoffice@email.com",
                   password: "Waffles",
                   role: 3)
+    @address_1 = create(:address, user: @admin_user)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin_user)
   end
