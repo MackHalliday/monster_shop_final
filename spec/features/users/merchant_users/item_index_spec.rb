@@ -20,6 +20,7 @@ RSpec.describe "Merchant Dashboard" do
     merchant_admin = create(:user, role: 2, merchant: merchant_1)
     merchant_employee = create(:user, role: 1, merchant: merchant_1)
 
+
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_admin)
 
     visit merchant_user_path
@@ -51,14 +52,10 @@ RSpec.describe "Merchant Dashboard" do
     merchant_1 =  Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
 
     merchant_admin = User.create!(name: "Michael Scott",
-                  address: "1725 Slough Ave",
-                  city: "Scranton",
-                  state: "PA",
-                  zipcode: "18501",
-                  email: "michael.s@email.com",
                   password: "WorldBestBoss",
                   role: 2,
                   merchant: merchant_1)
+    address_1 = create(:address, user: merchant_admin)
 
     item_1 = merchant_1.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 

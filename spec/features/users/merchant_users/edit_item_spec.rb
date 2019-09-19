@@ -3,12 +3,14 @@ require 'rails_helper'
 RSpec.describe "Merchant Items Page" do
   describe "As a merchant admin" do
     before :each do
+      user = create(:user)
+      address_1 = create(:address, user: user)
       @shop = create(:merchant)
       @item_1 = @shop.items.create(name: "apple", description: "fresh", price: 10.00, image: "https://avatars3.githubusercontent.com/u/6475745?s=88&v=4", active?: true, inventory: 30)
       @item_2 = @shop.items.create(attributes_for(:item, name: "orange"))
 
       user = create(:user)
-      order = create(:order)
+      order = Order.create(address: address_1)
       item_order = user.item_orders.create!(order: order, item: @item_1, quantity: 1, price: @item_1.price)
 
       merchant_admin = create(:user, role: 2, merchant: @shop)
