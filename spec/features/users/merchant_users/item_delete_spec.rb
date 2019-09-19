@@ -10,8 +10,10 @@ RSpec.describe "Merchant Items Page" do
       @item_2 = shop.items.create!(attributes_for(:item, name: "orange")) # order not placed, can delete
 
       user = create(:user)
-      order = create(:order)
-      item_order = user.item_orders.create!(order: order, item: @item_1, quantity: 1, price: @item_1.price)
+        address_1 = create(:address, user: user)
+
+      order = Order.create(address: address_1)
+        item_order = user.item_orders.create!(order: order, item: @item_1, quantity: 1, price: @item_1.price)
 
       merchant_admin = create(:user, role: 2, merchant: shop)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_admin)

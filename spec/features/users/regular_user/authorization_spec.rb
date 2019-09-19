@@ -3,12 +3,9 @@ require 'rails_helper'
 RSpec.describe "Regular Users" do
   before :each do
     @regular_user = User.create!(name: "George Jungle",
-                  address: "1 Jungle Way",
-                  city: "Jungleopolis",
-                  state: "FL",
-                  zipcode: "77652",
                   email: "junglegeorge@email.com",
                   password: "Tree123")
+    @address_1 = create(:address, user: @regular_user)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@regular_user)
   end

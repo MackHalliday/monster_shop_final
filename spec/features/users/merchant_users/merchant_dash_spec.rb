@@ -23,15 +23,11 @@ RSpec.describe "Show Merchant Dashboard" do
               inventory: 12)
 
       @merchant_user = @bike_shop.users.create!(name: "Michael Scott",
-                    address: "1725 Slough Ave",
-                    city: "Scranton",
-                    state: "PA",
-                    zipcode: "18501",
                     email: "michael.s@email.com",
                     password: "WorldBestBoss",
                     password_confirmation: "WorldBestBoss",
                     role: 2)
-
+      @address_1 = create(:address, user: @merchant_user)
     end
 
     it "When I visit my merchant dashboard, I see the name and full address of the merchant I work for" do
@@ -51,7 +47,8 @@ RSpec.describe "Show Merchant Dashboard" do
 
     it "When I visit my merchant dashboard, if any users have pending orders containing items I sell, then I see a list of these orders with order ID (linked to order show page), date the order was made, total quantity of my items in the order, and the total value of my items for that order" do
       user = create(:user)
-      order_1 = create(:order)
+        address_1 = create(:address, user: user)
+      order_1 = Order.create(address: address_1)
       item_order_1 = user.item_orders.create!(order: order_1, item: @chain, quantity: 1, price: @chain.price)
       item_order_2 = user.item_orders.create!(order: order_1, item: @tire, quantity: 1, price: @tire.price)
 

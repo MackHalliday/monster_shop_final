@@ -41,44 +41,18 @@ RSpec.describe "As an admin user" do
       pulltoy = brian.items.create(name: "Pulltoy", description: "It'll never fall apart!", price: 14, image: "https://www.valupets.com/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/l/a/large_rubber_dog_pull_toy.jpg", inventory: 7)
 
       regular_user = User.create!(name: "George Jungle",
-                    address: "1 Jungle Way",
-                    city: "Jungleopolis",
-                    state: "FL",
-                    zipcode: "77652",
                     email: "junglegeorge@email.com",
                     password: "Tree123")
+      address_1 = create(:address, user: regular_user)
 
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(regular_user)
-
-
-      visit item_path(paper)
-      click_on "Add To Cart"
-      visit item_path(paper)
-      click_on "Add To Cart"
-      visit item_path(tire)
-      click_on "Add To Cart"
-      visit item_path(pencil)
-      click_on "Add To Cart"
-
-      visit "/cart"
-      click_on "Checkout"
-
-      name = "Bert"
-      address = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
-
-      fill_in "Name", with: name
-      fill_in "Address", with: address
-      fill_in "City", with: city
-      fill_in "State", with: state
-      fill_in "Zip", with: zip
-
-      click_button "Create Order"
+      order_1 = Order.create!(status: "shipped", address: address_1)
+        item_order_1 = regular_user.item_orders.create!(order: order_1, item: tire, quantity: 2, price: tire.price, fulfilled?: true)
 
       visit merchants_path
-      expect(page).to_not have_link("Delete")
+
+      within "#merchant-#{meg.id}" do
+        expect(page).to_not have_link("Delete")
+      end
     end
   end
 end

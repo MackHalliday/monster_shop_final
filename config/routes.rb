@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   root to: "welcome#index"
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+
+  resources :addresses, only: [:edit, :update, :new, :create, :destroy]
 
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
@@ -24,13 +25,11 @@ Rails.application.routes.draw do
     resources :reviews, except: [:show, :index]
   end
 
-  # resources :orders, only: [:new, :create]
   patch "/orders/:id", to: "orders#cancel", as: :order_cancel
 
   namespace :admin do
     get "/", to: "dashboard#index"
     patch "/orders/:order_id/update_status", to: "dashboard#update_status"
-
     resources :users, only: [:index, :show]
     resources :merchants, only: [:show]
   end
@@ -46,10 +45,14 @@ Rails.application.routes.draw do
   patch "/profile", to: "users#update"
   get "/profile/edit_password", to: "users#edit_password"
   patch "/profile/update_password", to: "users#update_password"
+
+  #######ORDERS#####
   get "/profile/orders", to: "users#show_orders"
   post "/profile/orders", to: "orders#create"
   get "/profile/orders/new", to: "orders#new"
   get "/profile/orders/:id", to: "users#show_order"
+
+  get "orders/:address_id", to: "orders#new"
 
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"

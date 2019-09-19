@@ -8,16 +8,21 @@ class UsersController< ApplicationController
 
   def new
     @user = User.new
+    @address = Address.new
   end
 
   def create
+
     @user = User.new(user_params)
-    if @user.save
+
+    address = Address.create({address_type: "primary", name: params[:name], address: params[:address], city: params[:city], state: params[:state], zipcode: params[:zipcode], user: @user })
+
+    if @user.save && address.save
       session[:user_id] = @user.id
       flash[:success] = "Welcome #{@user.name}! You are now registered and logged in."
       redirect_to "/profile"
     else
-      flash[:error] = @user.errors.full_messages.to_sentence
+      flash[:error] = @user.errors.full_messages.to_sentence + " " + address.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -30,6 +35,7 @@ class UsersController< ApplicationController
   end
 
   def update
+
     @user.update(user_params)
     if @user.save
       flash[:success] = "Your profile has been updated"
@@ -66,6 +72,6 @@ class UsersController< ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :address, :city, :state, :zipcode, :email, :password, :password_confirmation)
+    params.permit(:name, :email, :password, :password_confirmation)
   end
 end

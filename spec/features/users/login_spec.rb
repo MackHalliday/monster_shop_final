@@ -8,36 +8,26 @@ RSpec.describe "User Login" do
                 state: 'VA',
                 zip: 23137)
     @regular_user = User.create!(name: "George Jungle",
-                  address: "1 Jungle Way",
-                  city: "Jungleopolis",
-                  state: "FL",
-                  zipcode: "77652",
                   email: "junglegeorge@email.com",
                   password: "Tree123")
+    @address_1 = create(:address, user: @regular_user)
     @merchant_employee = @bike_shop.users.create!(name: "Dwight Schrute",
-                  address: "175 Beet Rd",
-                  city: "Scranton",
-                  state: "PA",
-                  zipcode: "18501",
                   email: "dwightkschrute@email.com",
                   password: "IdentityTheftIsNotAJoke",
-                  role: 1)
+                  role: 1,
+                  merchant: @bike_shop)
+    @address_2 = create(:address, user: @merchant_employee)
     @merchant_user = @bike_shop.users.create!(name: "Michael Scott",
-                  address: "1725 Slough Ave",
-                  city: "Scranton",
-                  state: "PA",
-                  zipcode: "18501",
                   email: "michael.s@email.com",
                   password: "WorldBestBoss",
-                  role: 2)
+                  role: 2,
+                  merchant: @bike_shop)
+    @address_3 = create(:address, user: @merchant_user)
     @admin_user = User.create!(name: "Leslie Knope",
-                  address: "14 Somewhere Ave",
-                  city: "Pawnee",
-                  state: "IN",
-                  zipcode: "18501",
                   email: "recoffice@email.com",
                   password: "Waffles",
                   role: 3)
+    @address_4 = create(:address, user: @admin_user)
   end
 
   it "can log in a regular user" do
@@ -164,7 +154,7 @@ RSpec.describe "User Login" do
       expect(page).to_not have_button("Checkout")
     end
 
-    it 'visit is not prompted to sign in on cart page if they have no items' do
+    xit 'visit is not prompted to sign in on cart page if they have no items' do
       visit "/cart"
 
       expect(page).to have_content("Cart is currently empty")

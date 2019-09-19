@@ -3,13 +3,10 @@ require 'rails_helper'
 RSpec.describe "Merchant Users" do
   before :each do
     @merchant_user = User.create!(name: "Michael Scott",
-                  address: "1725 Slough Ave",
-                  city: "Scranton",
-                  state: "PA",
-                  zipcode: "18501",
                   email: "michael.s@email.com",
                   password: "WorldBestBoss",
                   role: 2)
+    @address_1 = create(:address, user: @merchant_user)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
   end
