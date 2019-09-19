@@ -3,10 +3,6 @@ require 'rails_helper'
 describe User, type: :model do
   describe "validations" do
     it {should validate_presence_of :name}
-    # it {should validate_presence_of :address}
-    # it {should validate_presence_of :city}
-    # it {should validate_presence_of :state}
-    # it {should validate_presence_of :zipcode}
     it {should validate_presence_of :email}
     it {should validate_presence_of :password}
 
@@ -26,10 +22,6 @@ describe User, type: :model do
   describe "roles" do
     it "can be created as a default user" do
       regular_user = User.create!(name: "George Jungle",
-                    address: "1 Jungle Way",
-                    city: "Jungleopolis",
-                    state: "FL",
-                    zipcode: "77652",
                     email: "junglegeorge@email.com",
                     password: "Tree123")
 
@@ -39,13 +31,9 @@ describe User, type: :model do
 
     it "can be created as a merchant employee" do
       merchant_employee = User.create!(name: "Dwight Schrute",
-        address: "175 Beet Rd",
-        city: "Scranton",
-        state: "PA",
-        zipcode: "18501",
-        email: "dwightkschrute@email.com",
-        password: "IdentityTheftIsNotAJoke",
-        role: 1)
+                        email: "dwightkschrute@email.com",
+                        password: "IdentityTheftIsNotAJoke",
+                        role: 1)
 
       expect(merchant_employee.role).to eq("merchant_employee")
       expect(merchant_employee.merchant_employee?).to be_truthy
@@ -53,10 +41,6 @@ describe User, type: :model do
 
     it "can be created as a merchant admin" do
       merchant_admin = User.create!(name: "Michael Scott",
-                    address: "1725 Slough Ave",
-                    city: "Scranton",
-                    state: "PA",
-                    zipcode: "18501",
                     email: "michael.s@email.com",
                     password: "WorldBestBoss",
                     role: 2)
@@ -67,10 +51,6 @@ describe User, type: :model do
 
     it "can be created as a admin user" do
       admin_user = User.create!(name: "Leslie Knope",
-                    address: "14 Somewhere Ave",
-                    city: "Pawnee",
-                    state: "IN",
-                    zipcode: "18501",
                     email: "recoffice@email.com",
                     password: "Waffles",
                     role: 3)
@@ -106,16 +86,17 @@ describe User, type: :model do
   describe "methods" do
     it 'can find item orders by merchant user with order id' do
       regular_user_1 = create(:user)
+        address_1 = create(:address, user: regular_user_1)
 
       merchant_shop_1 = create(:merchant, name: "Merchant Shop 1")
         item_1 = merchant_shop_1.items.create!(attributes_for(:item, name: "Item 1" ))
         item_2 = merchant_shop_1.items.create!(attributes_for(:item, name: "Item 2"))
 
-      order_1 = create(:order)
+      order_1 = Order.create(address: address_1)
         item_order_1 = regular_user_1.item_orders.create!(order: order_1, item: item_1, quantity: 2, price: item_1.price, user: regular_user_1)
         item_order_2 = regular_user_1.item_orders.create!(order: order_1, item: item_2, quantity: 8, price: item_2.price, user: regular_user_1)
 
-      order_2 = create(:order)
+      order_2 = Order.create(address: address_1 )
         item_order_4 = regular_user_1.item_orders.create(order: order_2, item: item_2, quantity: 18, price: item_2.price, user: regular_user_1)
 
       merchant_admin = create(:user, role: 2, merchant: merchant_shop_1)
