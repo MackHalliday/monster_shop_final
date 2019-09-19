@@ -20,6 +20,7 @@ describe Item, type: :model do
   describe "instance methods" do
     before(:each) do
       @user = create(:user)
+        @address_1 = create(:address, user: @user)
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @chain = @bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
       @bike = @bike_shop.items.create(name: "Bike", description: "You can ride it!", price: 200, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 0)
@@ -31,8 +32,8 @@ describe Item, type: :model do
       @review_4 = @chain.reviews.create(title: "Not too impressed", content: "v basic bike shop", rating: 2)
       @review_5 = @chain.reviews.create(title: "Okay place :/", content: "Brian's cool and all but just an okay selection of items", rating: 3)
 
-      @order_1 = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: "pending")
-      @order_2 = Order.create(name: 'Mack', address: '123 Happy St', city: 'Denver', state: 'CO', zip: 80205, status: "pending")
+      @order_1 = Order.create(address: @address_1, status: "pending")
+      @order_2 = Order.create(address: @address_1, status: "pending")
         @item_order_1 = @user.item_orders.create!(order: @order_2, item: @watch, quantity: 2, price: @watch.price, user: @user, fulfilled?: false)
     end
 
@@ -80,22 +81,23 @@ describe Item, type: :model do
   describe "top and bottom five" do
     it "shows an area with statistics of top/bottom 5 most/least popular items (by quantity purchased), plus that quantity" do
       shop = create(:merchant)
-      item_1 = shop.items.create(attributes_for(:item, name: "apple"))
-      item_2 = shop.items.create(attributes_for(:item, name: "orange"))
-      item_3 = shop.items.create(attributes_for(:item, name: "banana"))
-      item_4 = shop.items.create(attributes_for(:item, name: "pear"))
-      item_5 = shop.items.create(attributes_for(:item, name: "lychee"))
-      item_6 = shop.items.create(attributes_for(:item, name: "watermelon"))
+        item_1 = shop.items.create(attributes_for(:item, name: "apple"))
+        item_2 = shop.items.create(attributes_for(:item, name: "orange"))
+        item_3 = shop.items.create(attributes_for(:item, name: "banana"))
+        item_4 = shop.items.create(attributes_for(:item, name: "pear"))
+        item_5 = shop.items.create(attributes_for(:item, name: "lychee"))
+        item_6 = shop.items.create(attributes_for(:item, name: "watermelon"))
       items = [item_1, item_2, item_3, item_4, item_5, item_6]
 
       user = create(:user)
-      order_1 = create(:order)
+        address_1 = create(:address, user: user)
+      order_1 = Order.create(address: address_1)
       item_order_1 = user.item_orders.create!(order: order_1, item: item_6, quantity: 6, price: item_6.price)
       item_order_2 = user.item_orders.create!(order: order_1, item: item_5, quantity: 5, price: item_5.price)
       item_order_3 = user.item_orders.create!(order: order_1, item: item_4, quantity: 4, price: item_4.price)
       item_order_4 = user.item_orders.create!(order: order_1, item: item_3, quantity: 3, price: item_3.price)
 
-      order_2 = create(:order)
+      order_2 = Order.create(address: address_1)
       item_order_5 = user.item_orders.create!(order: order_2, item: item_6, quantity: 6, price: item_6.price)
       item_order_6 = user.item_orders.create!(order: order_2, item: item_1, quantity: 1, price: item_1.price)
       item_order_7 = user.item_orders.create!(order: order_2, item: item_2, quantity: 2, price: item_2.price)
