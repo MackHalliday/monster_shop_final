@@ -9,13 +9,13 @@ FactoryBot.define do
     password { Faker::Lorem.word }
   end
 
-  factory :order do
-    name { Faker::Name.name }
-    address { Faker::Address.street_address }
-    city { Faker::Address.city }
-    state { Faker::Address.state }
-    zip { Faker::Address.zip }
-  end
+  # factory :order do
+  # #   # name { Faker::Name.name }
+  # #   # address { Faker::Address.street_address }
+  # #   # city { Faker::Address.city }
+  # #   # state { Faker::Address.state }
+  # #   # zip { Faker::Address.zip }
+  # end
 
   factory :item do
     name { Faker::Name.name }

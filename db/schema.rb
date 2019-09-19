@@ -72,9 +72,11 @@ ActiveRecord::Schema.define(version: 20190917220916) do
     t.string "city"
     t.string "state"
     t.integer "zip"
+    t.bigint "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 1
+    t.index ["address_id"], name: "index_orders_on_address_id"
   end
 
   create_table "reviews", force: :cascade do |t|

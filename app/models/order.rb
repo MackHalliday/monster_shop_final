@@ -1,10 +1,12 @@
 class Order <ApplicationRecord
-  validates_presence_of :name, :address, :city, :state, :zip, :status
+  # validates_presence_of :name, :address, :city, :state, :zip, :status
 
   has_many :item_orders
   has_many :items, through: :item_orders
   has_many :merchants, through: :item
   has_many :users, through: :item_orders
+  # has_many :users
+  belongs_to :address
 
   enum status: [:packaged, :pending, :shipped, :cancelled]
 

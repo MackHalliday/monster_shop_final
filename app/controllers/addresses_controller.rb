@@ -33,9 +33,15 @@ class AddressesController < ApplicationController
 
   def destroy
     @address = Address.find(params[:id])
-    @address.destroy
-    current_user.reload
-    redirect_to profile_path
+
+    if @address.shipped?
+      flash[:error] = "Address cannot be deleted."
+      redirect_to profile_path
+    else
+      @address.destroy
+      current_user.reload
+      redirect_to profile_path
+    end
   end
 
   private
