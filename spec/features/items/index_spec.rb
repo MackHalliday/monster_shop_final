@@ -66,18 +66,22 @@ RSpec.describe "Items Index Page" do
       item_5 = shop.items.create(attributes_for(:item, name: "lychee"))
       item_6 = shop.items.create(attributes_for(:item, name: "watermelon"))
 
-      user = create(:user)
-      order_1 = create(:order)
-      item_order_1 = user.item_orders.create!(order: order_1, item: item_6, quantity: 6, price: item_6.price)
-      item_order_2 = user.item_orders.create!(order: order_1, item: item_5, quantity: 5, price: item_5.price)
-      item_order_3 = user.item_orders.create!(order: order_1, item: item_4, quantity: 4, price: item_4.price)
-      item_order_4 = user.item_orders.create!(order: order_1, item: item_3, quantity: 3, price: item_3.price)
+      user = User.create!(name: "George Jungle",
+                    email: "junglegeorge@email.com",
+                    password: "Tree123")
+      address_1 = create(:address, user: user)
 
-      order_2 = create(:order)
-      item_order_5 = user.item_orders.create!(order: order_2, item: item_6, quantity: 6, price: item_6.price)
-      item_order_6 = user.item_orders.create!(order: order_2, item: item_1, quantity: 1, price: item_1.price)
-      item_order_7 = user.item_orders.create!(order: order_2, item: item_2, quantity: 2, price: item_2.price)
-      item_order_8 = user.item_orders.create!(order: order_2, item: item_3, quantity: 3, price: item_3.price)
+      order_1 = Order.create(address: address_1)
+        item_order_1 = user.item_orders.create!(order: order_1, item: item_6, quantity: 6, price: item_6.price)
+        item_order_2 = user.item_orders.create!(order: order_1, item: item_5, quantity: 5, price: item_5.price)
+        item_order_3 = user.item_orders.create!(order: order_1, item: item_4, quantity: 4, price: item_4.price)
+        item_order_4 = user.item_orders.create!(order: order_1, item: item_3, quantity: 3, price: item_3.price)
+
+      order_2 = Order.create(address: address_1)
+        item_order_5 = user.item_orders.create!(order: order_2, item: item_6, quantity: 6, price: item_6.price)
+        item_order_6 = user.item_orders.create!(order: order_2, item: item_1, quantity: 1, price: item_1.price)
+        item_order_7 = user.item_orders.create!(order: order_2, item: item_2, quantity: 2, price: item_2.price)
+        item_order_8 = user.item_orders.create!(order: order_2, item: item_3, quantity: 3, price: item_3.price)
 
       visit items_path
 
