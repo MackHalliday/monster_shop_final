@@ -80,7 +80,7 @@ review_35 = dundie.reviews.create(title: 'Title 5', content: "This is content fo
 #users
 regular_user_1 = User.create!(name: "George Jungle",
               email: "junglegeorge@email.com",
-              password: "Tree123")
+              password: "123")
 address_1 = Address.create(address_type: "primary",
               name: "George Jungle",
               address: "1 Jungle Way",
@@ -89,59 +89,71 @@ address_1 = Address.create(address_type: "primary",
               zipcode: "77652",
               user: regular_user_1)
 regular_user_2 = User.create!(name: "John Testing",
-              address: "123 Testing Lane",
-              city: "Testico",
-              state: "TE",
-              zipcode: "77639",
               email: "regular_user_1@email.com",
-              password: "Password123")
+              password: "123")
+address_2 = Address.create(address_type: "primary",
+              name: "John Testing",
+              address: "123 Happy Street",
+              city: "Testing City",
+              state: "CO",
+              zipcode: "77652",
+              user: regular_user_2)
 merchant_employee = User.create!(name: "Dwight Schrute",
-              address: "175 Beet Rd",
-              city: "Scranton",
-              state: "PA",
-              zipcode: "18501",
               email: "dwightkschrute@email.com",
-              password: "IdentityTheftIsNotAJoke",
+              password: "123",
               role: 1,
               merchant: dunder)
-merchant_admin = User.create!(name: "Michael Scott",
+address_3 = Address.create(name: "Michael Scott",
+              address_type: "primary",
               address: "1725 Slough Ave",
               city: "Scranton",
               state: "PA",
               zipcode: "18501",
+              user: merchant_employee)
+merchant_admin = User.create!(name: "Michael Scott",
               email: "michael.s@email.com",
               password: "WorldBestBoss",
               role: 2,
               merchant: dunder)
-admin_user = User.create!(name: "Leslie Knope",
-              address: "14 Somewhere Ave",
-              city: "Pawnee",
-              state: "IN",
+address_4 = Address.create(name: "Michael Scott",
+              address_type: "primary",
+              address: "1725 Slough Ave",
+              city: "Scranton",
+              state: "PA",
               zipcode: "18501",
+              user: merchant_admin)
+admin_user = User.create!(name: "Leslie Knope",
               email: "recoffice@email.com",
               password: "Waffles",
               role: 3)
+address_5 = Address.create(name: "Admin",
+              address_type: "primary",
+              address: "123 Address",
+              city: "City",
+              state: "ST",
+              zipcode: "12222",
+              user: admin_user)
 
-order_1 = Order.create!(name: "Beth", address: "123 Happy St", city: "Denver", state: "CO", zip: "80205", status: 0)
+order_1 = Order.create!(status: "pending", address: address_1)
   item_order_1 = ItemOrder.create!(order: order_1, item: tire, quantity: 2, price: tire.price, user: regular_user_1, fulfilled?: 0)
   item_order_2 = ItemOrder.create!(order: order_1, item: bike, quantity: 5, price: bike.price, user: regular_user_1, fulfilled?: 0)
   item_order_3 = ItemOrder.create!(order: order_1, item: watch, quantity: 5, price: watch.price, user: regular_user_1, fulfilled?: 0)
 
-order_2 = Order.create(name: "John", address: "123 West St", city: "Golden", state: "CO", zip: "56600", status: 0)
+order_2 = Order.create!(status: "shipped", address: address_2)
   item_order_4 = ItemOrder.create(order: order_2, item: bike, quantity: 12, price: bike.price, user: regular_user_2)
   item_order_5 = ItemOrder.create(order: order_2, item: dog_bone, quantity: 3, price: dog_bone.price, user: regular_user_2)
 
 
-order_3 = Order.create(name: "Amber", address: "123 East St", city: "Denver", state: "CO", zip: "80205")
-  item_order_6 = ItemOrder.create(order: order_3, item: pull_toy, quantity: 4, price: pull_toy.price, user: regular_user_1)
-  item_order_7 = ItemOrder.create(order: order_3, item: dog_bone, quantity: 3, price: dog_bone.price, user: regular_user_1)
-  item_order_8 = ItemOrder.create(order: order_3, item: tire, quantity: 1, price: tire.price, user: regular_user_1)
-  item_order_9 = ItemOrder.create(order: order_3, item: bike, quantity: 1, price: bike.price, user: regular_user_1)
-
-order_4 = Order.create(name: "Matt", address: "123 North St", city: "Chicago", state: "IL", zip: "60701")
-  item_order_10 = ItemOrder.create(order: order_4, item: pull_toy, quantity: 4, price: pull_toy.price, user: regular_user_2)
-  item_order_11 = ItemOrder.create(order: order_4, item: dog_bone, quantity: 3, price: dog_bone.price, user: regular_user_2)
-
-order_5 = Order.create(name: "Mr. Roger", address: "The Neighborhood", city: "Olympia", state: "Washington", zip: "90701")
-  item_order_12 = ItemOrder.create(order: order_5, item: pull_toy, quantity: 4, price: pull_toy.price, user: regular_user_2)
-  item_order_13 = ItemOrder.create(order: order_5, item: dog_bone, quantity: 3, price: dog_bone.price, user: regular_user_2)
+# order_3 = Order.create(name: "Amber", address: "123 East St", city: "Denver", state: "CO", zip: "80205")
+#   item_order_6 = ItemOrder.create(order: order_3, item: pull_toy, quantity: 4, price: pull_toy.price, user: regular_user_1)
+#   item_order_7 = ItemOrder.create(order: order_3, item: dog_bone, quantity: 3, price: dog_bone.price, user: regular_user_1)
+#   item_order_8 = ItemOrder.create(order: order_3, item: tire, quantity: 1, price: tire.price, user: regular_user_1)
+#   item_order_9 = ItemOrder.create(order: order_3, item: bike, quantity: 1, price: bike.price, user: regular_user_1)
+#
+# order_4 = Order.create(name: "Matt", address: "123 North St", city: "Chicago", state: "IL", zip: "60701")
+#   item_order_10 = ItemOrder.create(order: order_4, item: pull_toy, quantity: 4, price: pull_toy.price, user: regular_user_2)
+#   item_order_11 = ItemOrder.create(order: order_4, item: dog_bone, quantity: 3, price: dog_bone.price, user: regular_user_2)
+#
+# order_5 = Order.create(name: "Mr. Roger", address: "The Neighborhood", city: "Olympia", state: "Washington", zip: "90701")
+#   item_order_12 = ItemOrder.create(order: order_5, item: pull_toy, quantity: 4, price: pull_toy.price, user: regular_user_2)
+#   item_order_13 = ItemOrder.create(order: order_5, item: dog_bone, quantity: 3, price: dog_bone.price, user: regular_user_2)
