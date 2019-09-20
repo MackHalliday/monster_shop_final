@@ -1,6 +1,7 @@
 <h1>Cart</h1>
 
 <% if !@items.empty? %>
+
   <center>
     <table class = "cart-items">
       <tr>
@@ -46,8 +47,12 @@
 
       <p>Total: <%= number_to_currency(cart.total) %></p>
       <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
-
       <% unless current_user.nil? %>
+
+      <% if current_user.addresses.empty? %>
+        <p> Sorry, you cannot checkout. Please add an address by click on the link below </p>
+        <%= link_to "Add Address", new_address_path %>
+        <% else %>
         <h3> Select Shipping Address </h3>
         <% current_user.addresses.each do |address| %>
           <section id="address-<%=address.id%>">
@@ -55,9 +60,11 @@
             <p><%= link_to "Checkout Using this Address", "/orders/#{address.id}" %></p>
           </section>
           <% end %>
-      <% else %>
-        <h3 align= "center">Cart is currently empty</h3>
+        <% end %>
       <% end %>
     </table>
   </center>
+<% end %>
+<% if @items.empty? %>
+  <h3 align= "center"> Cart is currently empty</h3>
 <% end %>

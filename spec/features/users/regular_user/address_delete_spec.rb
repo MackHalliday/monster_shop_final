@@ -28,10 +28,11 @@ RSpec.describe "Add New User Addresses" do
     @order_2 = Order.create!(status: "packaged", address: @address_2)
       @item_order_2 = @regular_user.item_orders.create!(order: @order_2, item: @item_1, quantity: 3, price: @item_1.price, fulfilled?: true)
 
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@regular_user)
-    visit profile_path
+
   end
   it 'can add new address' do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@regular_user)
+    visit profile_path
 
     within "#address-#{@address_2.id}" do
       click_on "Delete"
@@ -50,7 +51,8 @@ RSpec.describe "Add New User Addresses" do
   end
 
   it "address cannot be deleted or changed if it's been used in a shipped order" do
-
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@regular_user)
+    visit profile_path
 
     within "#address-#{@address_1.id}" do
       click_on "Delete"
@@ -64,6 +66,24 @@ RSpec.describe "Add New User Addresses" do
       expect(page).to have_content(@address_1.zipcode)
     end
 
-    expect(page).to have_content("Address cannot be deleted.")
+    expect(page).to have_content("Address cannot be deleted. Currently being used to ship a package.")
+  end
+
+  it 'user cannot check if they have no addresses' do
+
+    regular_user_1 = User.create!(name: "Mack",
+                                email: "email@email.com",
+                                password: "123")
+
+    visit item_path(@item_1)
+    click_on "Add To Cart"
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(regular_user_1)
+    visit cart_path
+
+    expect(page).to have_content("Sorry, you cannot checkout. Please add an address by click on the link below")
+
+    click_link("Add Address")
+    expect(current_path).to eq(new_address_path)
   end
 end

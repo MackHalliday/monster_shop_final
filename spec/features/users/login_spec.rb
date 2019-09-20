@@ -154,7 +154,7 @@ RSpec.describe "User Login" do
       expect(page).to_not have_button("Checkout")
     end
 
-    xit 'visit is not prompted to sign in on cart page if they have no items' do
+    it 'visit is not prompted to sign in on cart page if they have no items' do
       visit "/cart"
 
       expect(page).to have_content("Cart is currently empty")

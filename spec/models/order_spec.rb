@@ -12,7 +12,7 @@ describe Order, type: :model do
   describe 'instance methods' do
     before :each do
       @user = create(:user)
-        @address_1 = create(:address, user: @user)
+        @address_1 = Address.create(name:"Meg", address: "123 Stang Ave", city: "Hershey", state: "PA", zipcode: "17033", user: @user)
         @address_2 = create(:address, user: @user)
 
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -43,7 +43,7 @@ describe Order, type: :model do
       expect(@order_1.total_items).to eq(5)
     end
 
-    xit 'to_s' do
+    it 'to_s' do
       expect(@order_1.to_s).to eq("Meg\n    123 Stang Ave\n    Hershey, PA\n    17033\n    ")
     end
 

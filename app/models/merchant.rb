@@ -24,8 +24,10 @@ class Merchant < ApplicationRecord
   end
 
   def distinct_cities
-  
-    orders.distinct.joins(:address).pluck(:city)
+    orders = self.orders
+    orders.map do |order|
+      order.address.city
+    end.uniq
   end
 
   def pending_orders

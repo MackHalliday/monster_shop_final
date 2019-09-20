@@ -63,7 +63,7 @@ RSpec.describe 'Site Navigation' do
       expect(current_path).to eq('/login')
     end
 
-    xit 'I can click on registration link' do
+    it 'I can click on registration link' do
       visit root_path
 
       within 'nav' do

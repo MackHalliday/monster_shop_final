@@ -35,7 +35,7 @@ class AddressesController < ApplicationController
     @address = Address.find(params[:id])
 
     if @address.shipped?
-      flash[:error] = "Address cannot be deleted."
+      flash[:error] = "Address cannot be deleted. Currently being used to ship a package."
       redirect_to profile_path
     else
       @address.destroy
