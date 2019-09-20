@@ -1,6 +1,7 @@
 <h1>Cart</h1>
 
 <% if !@items.empty? %>
+
   <center>
     <table class = "cart-items">
       <tr>
@@ -55,9 +56,10 @@
             <p><%= link_to "Checkout Using this Address", "/orders/#{address.id}" %></p>
           </section>
           <% end %>
-      <% else %>
-        <h3 align= "center">Cart is currently empty</h3>
       <% end %>
     </table>
   </center>
+<% end %>
+<% if @items.empty? %>
+  <h3 align= "center"> Cart is currently empty</h3>
 <% end %>
