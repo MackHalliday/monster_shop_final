@@ -17,10 +17,11 @@ class Order <ApplicationRecord
   end
 
   def to_s
-    "#{self.name}
-    #{self.address}
-    #{self.city}, #{self.state}
-    #{self.zip}
+
+    "#{self.address.name}
+    #{self.address.address}
+    #{self.address.city}, #{self.address.state}
+    #{self.address.zipcode}
     "
   end
 
