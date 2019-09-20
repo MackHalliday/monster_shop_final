@@ -78,18 +78,18 @@ review_34 = dundie.reviews.create(title: 'Title 4', content: "This is content fo
 review_35 = dundie.reviews.create(title: 'Title 5', content: "This is content for review 5", rating: 6)
 
 #users
-regular_user_1 = User.create!(name: "George Jungle",
-              email: "junglegeorge@email.com",
+regular_user_1 = User.create!(name: "Jane Testing",
+              email: "regular_user_1@emal.com",
               password: "123")
 address_1 = Address.create(address_type: "primary",
-              name: "George Jungle",
-              address: "1 Jungle Way",
-              city: "Jungleopolis",
-              state: "FL",
+              name: "Jane Testing",
+              address: "123 North St",
+              city: "Denver",
+              state: "CO",
               zipcode: "77652",
               user: regular_user_1)
 regular_user_2 = User.create!(name: "John Testing",
-              email: "regular_user_1@email.com",
+              email: "regular_user_2@email.com",
               password: "123")
 address_2 = Address.create(address_type: "primary",
               name: "John Testing",
@@ -98,8 +98,8 @@ address_2 = Address.create(address_type: "primary",
               state: "CO",
               zipcode: "77652",
               user: regular_user_2)
-merchant_employee = User.create!(name: "Dwight Schrute",
-              email: "dwightkschrute@email.com",
+merchant_employee = User.create!(name: "Merchant Employee",
+              email: "merchant_employee@email.com",
               password: "123",
               role: 1,
               merchant: dunder)
@@ -110,9 +110,9 @@ address_3 = Address.create(name: "Michael Scott",
               state: "PA",
               zipcode: "18501",
               user: merchant_employee)
-merchant_admin = User.create!(name: "Michael Scott",
-              email: "michael.s@email.com",
-              password: "WorldBestBoss",
+merchant_admin = User.create!(name: "Merchant Admin",
+              email: "merchant_admin@email.com",
+              password: "123",
               role: 2,
               merchant: dunder)
 address_4 = Address.create(name: "Michael Scott",
@@ -122,9 +122,9 @@ address_4 = Address.create(name: "Michael Scott",
               state: "PA",
               zipcode: "18501",
               user: merchant_admin)
-admin_user = User.create!(name: "Leslie Knope",
-              email: "recoffice@email.com",
-              password: "Waffles",
+admin_user = User.create!(name: "Admin",
+              email: "admin@email.com",
+              password: "123",
               role: 3)
 address_5 = Address.create(name: "Admin",
               address_type: "primary",
