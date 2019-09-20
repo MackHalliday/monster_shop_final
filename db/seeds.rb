@@ -79,7 +79,7 @@ review_35 = dundie.reviews.create(title: 'Title 5', content: "This is content fo
 
 #users
 regular_user_1 = User.create!(name: "Jane Testing",
-              email: "regular_user_1@emal.com",
+              email: "regular_user_1@email.com",
               password: "123")
 address_1 = Address.create(address_type: "primary",
               name: "Jane Testing",

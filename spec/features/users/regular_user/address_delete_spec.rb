@@ -66,7 +66,7 @@ RSpec.describe "Add New User Addresses" do
       expect(page).to have_content(@address_1.zipcode)
     end
 
-    expect(page).to have_content("Address cannot be deleted.")
+    expect(page).to have_content("Address cannot be deleted. Currently being used to ship a package.")
   end
 
   it 'user cannot check if they have no addresses' do
