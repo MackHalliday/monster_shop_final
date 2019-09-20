@@ -64,7 +64,7 @@ RSpec.describe "User Profile Order Page" do
     end
   end
 
-  xit "can click an individual order id and see detailed info" do
+  it "can click an individual order id and see detailed info" do
     visit "/profile/orders"
 
     within "#item-order-#{@item_order_1.id}" do
@@ -85,7 +85,7 @@ RSpec.describe "User Profile Order Page" do
       expect(page).to have_content(@order_1.address.address)
       expect(page).to have_content(@order_1.address.city)
       expect(page).to have_content(@order_1.address.state)
-      expect(page).to have_content(@order_1.address.zip)
+      expect(page).to have_content(@order_1.address.zipcode)
       expect(page).to have_content(@item_order_1.created_at)
       expect(page).to have_content(@item_order_1.updated_at)
       expect(page).to have_content(@item_order_1.order.status)
