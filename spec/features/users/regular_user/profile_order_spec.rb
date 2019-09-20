@@ -26,20 +26,18 @@ RSpec.describe "User Profile Order Page" do
     expect(current_path).to eq("/profile/orders")
   end
 
-  xit "see a flash message confirming my recent order and empty cart" do
+  it "see a flash message confirming my recent order and empty cart" do
     visit item_path(@item_1)
     click_on "Add To Cart"
 
     visit "/cart"
-    click_on "Checkout"
 
-    fill_in "Name", with: "Bert"
-    fill_in "Address", with: "123 Sesame St"
-    fill_in "City", with: "New York"
-    fill_in "State", with: "NY"
-    fill_in "Zip", with: 10022
 
-    click_on "Create Order"
+    within "#address-#{@address_1.id}" do
+       click_link("Checkout Using this Address")
+    end
+
+    click_button("Submit Order")
 
     expect(current_path).to eq("/profile/orders")
 

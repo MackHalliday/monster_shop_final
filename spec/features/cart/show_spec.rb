@@ -78,7 +78,7 @@ RSpec.describe 'Cart show' do
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(regular_user)
       end
-      xit "I see a message saying my cart is empty" do
+      it "I see a message saying my cart is empty" do
 
 
         visit '/cart'
